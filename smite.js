@@ -125,7 +125,7 @@ console.log(giocatore1.bravura());
 // procedo creando i 10 dei (per ora) che prenderanno parte allo scontro
 // per ogni dio definisco complessità (1-2-3), forza(1-2-3), difesa(1-2-3) e escape(1-2-3); 
 
-// e il nome e l'ingaggio (1-2-3)
+// e il nome e l'ingaggio (2-3-4-5)
 
 var dio = function (){
     this.name;
@@ -142,7 +142,7 @@ ymir.complessita = 1;
 ymir.forza = 2;
 ymir.difesa = 3; 
 ymir.escape = 1;
-ymir.ingaggio = 3
+ymir.ingaggio = 4
 
 
 var bastet = new dio();
@@ -151,7 +151,7 @@ bastet.complessita = 1;
 bastet.forza = 2;
 bastet.difesa = 1; 
 bastet.escape = 2;
-bastet.ingaggio = 3;
+bastet.ingaggio = 4;
 
 
 var nox = new dio();
@@ -160,7 +160,7 @@ nox.complessita = 3;
 nox.forza = 3;
 nox.difesa = 1;
 nox.escape = 2; 
-nox.ingaggio = 3;
+nox.ingaggio = 4;
 
 
 var kukulkan = new dio();
@@ -187,7 +187,7 @@ odin.complessita = 2;
 odin.forza = 2;
 odin.difesa = 2;
 odin.escape = 2;
-odin.ingaggio = 3;
+odin.ingaggio = 5;
 
 
 var neith = new dio();
@@ -196,7 +196,7 @@ neith.complessita = 1;
 neith.forza = 3;
 neith.difesa = 1;
 neith.escape = 2;
-neith.ingaggio = 1;
+neith.ingaggio = 2;
 
 
 var loki = new dio();
@@ -205,7 +205,7 @@ loki.complessita = 3;
 loki.forza = 3;
 loki.difesa = 1;
 loki.escape = 3;
-loki.ingaggio = 2;
+loki.ingaggio = 4;
 
 
 var sunWukong = new dio();
@@ -214,7 +214,7 @@ sunWukong.complessita = 2;
 sunWukong.forza = 1;
 sunWukong.difesa = 2;
 sunWukong.escape = 3;
-sunWukong.ingaggio = 3;
+sunWukong.ingaggio = 5;
 
 
 var heBo = new dio();
@@ -436,15 +436,14 @@ var giocatore = function (){
     };
 
     this.divinita = function (){
-        var numeroCasuale = Math.floor(Math.random() * 10);
         var dio;
         if (squadraA.length < 5){
             do {
-                dio = dei[numeroCasuale];
-                } while (dio == squadraA[0] || dio == squadraA[1] || dio == squadraA[2] || dio == squadraA[3])
+                dio = dei[Math.floor(Math.random() * 10)];
+            } while (dio == squadraA[0] || dio == squadraA[1] || dio == squadraA[2] || dio == squadraA[3])
         } else if (squadraB.length < 5){
             do {
-                dio = dei[numeroCasuale];
+                dio = dei[Math.floor(Math.random() * 10)];
             } while (dio == squadraB[0] || dio == squadraB[1] || dio == squadraB[2] || dio == squadraB[3])
         }
         return dio;
@@ -486,38 +485,118 @@ var giocatore10 = new giocatore();
 squadraB.push (giocatore10.divinita());
 
 
-console.log(squadraA,squadraB);
+//console.log(squadraA,squadraB);
 
 
 
 
 
+// ora posso iniziare a creare una miriade di funzioni per regolare le regole del gioco YES I GIOCHI DI PAROLE
+
+// partiamo dalle prima ovvero l'influenza della bravura sul numero di giocatori in team fight
+// l'idea è quella di fare una funzione che restituisce un valore vero o falso per ogni giocatore nel caso sia o non sia in team fight
+// cominciamo col dare un BEL nome alla funzione !
+
+/*
+var EntroInTeamFight = function (){
+
+};
+*/
+
+// sappiamo che:
+// bravura = 0 -- 50%
+// bravura = 1 -- 75%
+// bravura = 2 -- 90%
+
+// faccio in modo che la funzione una volta stabilità la bravura mi 
+// carichi la funzione adeguata, quindi
 
 
 
+var entroInTeamFight = function (giocatoreX){
+    var ciSono = false;
+    var numeroFortunato = Math.ceil(Math.random() * 100);
+    if (giocatoreX.bravura() == 0){
+        if (numeroFortunato >= 50){
+            ciSono = true;
+        }    
+    } else if (giocatoreX.bravura() == 1){
+        if (numeroFortunato >= 25){
+            ciSono = true;
+        }    
+    } else {
+        if (numeroFortunato >= 10){
+            ciSono = true;
+        }    
+    }
+    return ciSono;
+};
 
 
+//console.log(entroInTeamFight(giocatore1));
+//console.log(entroInTeamFight(giocatore2));
+//console.log(entroInTeamFight(giocatore3));
+
+// ok ho fatto un tentativo e 1 giocatore su 3 avrebbe partecipato :)
 
 
+// ora passiamo a decidere quale squadra avrà la prima mossa (riassumo la regola)
+// le squadre confronteranno i valori ottunuti per decidere chi inizia
+// questi valori si calcolano facendo ingaggio + bravura - complessità per tutti i membri della squadra in team fight
+
+// quindi 
+
+// faccio un funzione che calcola il valora personale di ogni giocatore
+// dopo attente riflessioni ho deciso di modificare il valore di ingaggio degli dei portandolo ad un valore da 2 a 5.
+
+var valoreGiocatoreIniziativa = function(giocatoreX,squadra){
+    if (entroInTeamFight(giocatoreX) == true){
+        var iniziativa = ((squadra.ingaggio) + (giocatoreX.bravura()) - (squadra.complessita));
+    } else {
+        var iniziativa = 0;
+    }
+    return iniziativa; 
+};
+
+//console.log(valoreGiocatoreIniziativa(giocatore1,squadraA[0]));
+
+// ho aggiunto il caso in cui non parteciperà... con valore 0.
+// ok mi basta sommare i valori della squadraA e quelli della squadraB
+
+// console.log(valoreGiocatoreIniziativa(giocatore1,squadraA[0]) + 
+//            valoreGiocatoreIniziativa(giocatore2,squadraA[1]) + 
+//           valoreGiocatoreIniziativa(giocatore3,squadraA[2]) +
+//            valoreGiocatoreIniziativa(giocatore4,squadraA[3]) + 
+//            valoreGiocatoreIniziativa(giocatore5,squadraA[4]))
+
+// possiamo ora decidere chi inizia
 
 
+var squadraCheInizia = function(){
+    var squadraCheInizia;
+    if (valoreGiocatoreIniziativa(giocatore1,squadraA[0]) + 
+        valoreGiocatoreIniziativa(giocatore2,squadraA[1]) + 
+        valoreGiocatoreIniziativa(giocatore3,squadraA[2]) +
+        valoreGiocatoreIniziativa(giocatore4,squadraA[3]) + 
+        valoreGiocatoreIniziativa(giocatore5,squadraA[4]) >=
+        valoreGiocatoreIniziativa(giocatore6,squadraB[0]) + 
+        valoreGiocatoreIniziativa(giocatore7,squadraB[1]) + 
+        valoreGiocatoreIniziativa(giocatore8,squadraB[2]) +
+        valoreGiocatoreIniziativa(giocatore9,squadraB[3]) + 
+        valoreGiocatoreIniziativa(giocatore10,squadraB[4])){
+            squadraCheInizia = 'squadraA';
+        } else {
+            squadraCheInizia = 'squadraB';
+        }
+    return squadraCheInizia;
+};
 
 
+//console.log(squadraCheInizia());
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+// questa funzione richiama le altre da sola e ci dice la squadra che inizia
+// se necessario cambieremo le stringhe con un numero ma non è urgente.
 
 
 
