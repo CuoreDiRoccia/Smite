@@ -169,7 +169,7 @@ kukulkan.complessita = 2;
 kukulkan.forza = 3;
 kukulkan.difesa = 1;
 kukulkan.escape = 1;
-kukulkan.ingaggio = 1:
+kukulkan.ingaggio = 1;
 
 
 var xbalanque = new dio();
@@ -235,6 +235,8 @@ var dei = [ymir, bastet, nox, kukulkan, xbalanque, odin, neith, loki, sunWukong,
 // caratteristica divinita.
 
 
+/*
+
 var giocatore = function (){
   
     this.name = function (){
@@ -265,6 +267,10 @@ var giocatore = function (){
     };
 };
 
+*/
+/*
+
+
 var giocatore1 = new giocatore();
 
 //console.log(giocatore1.divinita());
@@ -284,6 +290,8 @@ var giocatore8 = new giocatore();
 var giocatore9 = new giocatore();
 var giocatore10 = new giocatore();
 
+
+*/
 
 // ora bisogna definire le regole con le quali si svolgerà lo scontro
 
@@ -324,52 +332,161 @@ var giocatore10 = new giocatore();
 // BENE! prima di procedere però penso sia meglio avere pronte le 2 squadre quindi procedo
 
 
-// la squadra uno avrà i primi 5 giocatori e la squadra 2 gli altri per comodità. 
+// la squadraA avrà i primi 5 giocatori e la squadraB gli altri per comodità. 
 // ogni squadra può avere un solo dio per tipo am si possono ripetere tra le 2 squadre
-// riprendo la caratteristica divinità dell'oggetto giocatore e cerco di includere questa nuova 'idea'
 
 
-this.divinita = function (){
-    var numeroCasuale = Math.floor(Math.random() * 10);
-    return dei[numeroCasuale];
-};
 
-// potrei aggiungere un array dove inserisco gli dei usciti per la prima squadra e un altro per la seconda
+// ogni volta che creo un nuovo giocatore aggiungo la sua divinità all'array
+// proviamo
 
-var deiPrimaSquadra = [];
-var deiSecondaSquadra = [];
+// rielaboro le chiamate giocatore
 
-// adesso devo fare in modo che il dio che esce vada inserito nell'array adeguato
+/*
 
-var deiPrimaSquadra = [];
-var deiSecondaSquadra = [];
+var squadraA = [];
+var squadraB = [];
+
+var giocatore1 = new giocatore();
+squadraA.push (giocatore1.divinita());
+
+var giocatore2 = new giocatore();
+squadraA.push (giocatore2.divinita());
+
+var giocatore3 = new giocatore();
+squadraA.push (giocatore3.divinita());
+
+var giocatore4 = new giocatore();
+squadraA.push (giocatore4.divinita());
+
+var giocatore5 = new giocatore();
+squadraA.push (giocatore5.divinita());
+
+var giocatore6 = new giocatore();
+squadraB.push (giocatore6.divinita());
+
+var giocatore7 = new giocatore();
+squadraB.push (giocatore7.divinita());
+
+var giocatore8 = new giocatore();
+squadraB.push (giocatore8.divinita());
+
+var giocatore9 = new giocatore();
+squadraB.push (giocatore9.divinita());
+
+var giocatore10 = new giocatore();
+squadraB.push (giocatore10.divinita());
+
+*/
+
+//console.log(squadraA,squadraB);
+
+
+// adesso cominciano i cazzi;
+// devo fare in modo che quando chiamo il giocatore2 il duo dio sia diverso da quello del giocatore1 proviamo
+
+
+// riprendo il this.divinita dell'oggetto giocatore e lo provo ad elaborare
+
+/*
 
 this.divinita = function (){
     var numeroCasuale = Math.floor(Math.random() * 10);
     var dio = dei[numeroCasuale];
-    if (deiPrimaSquadra.length < 5){
-        deiPrimaSquadra.push dio;
-    } else if (deiPrimaSquadra.length >= 5){
-        deiSecondaSquadra.push dio;
+    if (squadraA.length < 5){
+        do {
+            dio = dei[numeroCasuale];
+            } while (dio == squadraA[0] || dio == squadraA[1] || dio == squadraA[2] || dio == squadraA[3])
+    } else if (squadraA.length >= 5){
+        do {
+            dio = dei[numeroCasuale];
+        } while (dio == squadraB[0] || dio == squadraB[1] || dio == squadraB[2] || dio == squadraB[3])
     }
-    
-    
     return dio;
 };
 
-// il problema è che aggiungendo questo sul oggetto giocatore non verrà riempito l'array? c'è qualche possibilità 
-// di fare quello che voglio come oggetto o devo usare una funzione fuori dallo stesso?
+*/
 
 
+// commento le parti modificate e le risistemo di seguito aggiungendo un console.log delle due squadre
 
 
+var giocatore = function (){
+  
+    this.name = function (){
+        var nomiPossibili = ['Mario' , 'Marco' , 'Max' , 'Tony' , 'Luca' ,
+                     'Alberto' , 'Silvio' , 'Gennaro' , 'Michele' , 'Adrione' ,
+                     'Abelardo' , 'Alvin' , 'Richard' , 'Samuel' , 'Michael' ,
+                     'John' , 'Livio' , 'Damiano' , 'Daniele' , 'Umberto'];
+        var numeroCasuale = Math.floor(Math.random() * 20);
+        return nomiPossibili[numeroCasuale];
+    };
+    
+    this.bravura = function (){
+        var bravura;
+        var numeroCasuale = Math.ceil(Math.random() * 100);
+        if (numeroCasuale >= 1 && numeroCasuale <= 50){
+            bravura = 0;
+        } else if (numeroCasuale >= 51 && numeroCasuale<= 90){
+            bravura = 1;
+        } else {
+            bravura = 2;
+        }
+        return bravura;
+    };
+
+    this.divinita = function (){
+        var numeroCasuale = Math.floor(Math.random() * 10);
+        var dio;
+        if (squadraA.length < 5){
+            do {
+                dio = dei[numeroCasuale];
+                } while (dio == squadraA[0] || dio == squadraA[1] || dio == squadraA[2] || dio == squadraA[3])
+        } else if (squadraB.length < 5){
+            do {
+                dio = dei[numeroCasuale];
+            } while (dio == squadraB[0] || dio == squadraB[1] || dio == squadraB[2] || dio == squadraB[3])
+        }
+        return dio;
+    };
+};
 
 
+var squadraA = [];
+var squadraB = [];
+
+var giocatore1 = new giocatore();
+squadraA.push (giocatore1.divinita());
+
+var giocatore2 = new giocatore();
+squadraA.push (giocatore2.divinita());
+
+var giocatore3 = new giocatore();
+squadraA.push (giocatore3.divinita());
+
+var giocatore4 = new giocatore();
+squadraA.push (giocatore4.divinita());
+
+var giocatore5 = new giocatore();
+squadraA.push (giocatore5.divinita());
+
+var giocatore6 = new giocatore();
+squadraB.push (giocatore6.divinita());
+
+var giocatore7 = new giocatore();
+squadraB.push (giocatore7.divinita());
+
+var giocatore8 = new giocatore();
+squadraB.push (giocatore8.divinita());
+
+var giocatore9 = new giocatore();
+squadraB.push (giocatore9.divinita());
+
+var giocatore10 = new giocatore();
+squadraB.push (giocatore10.divinita());
 
 
-
-
-
+console.log(squadraA,squadraB);
 
 
 
