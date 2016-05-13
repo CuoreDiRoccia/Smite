@@ -584,10 +584,10 @@ var squadraCheInizia = function(){
         valoreGiocatoreIniziativa(giocatore8,squadraB[2]) +
         valoreGiocatoreIniziativa(giocatore9,squadraB[3]) + 
         valoreGiocatoreIniziativa(giocatore10,squadraB[4])){
-            squadraCheInizia = 'squadraA';
-        } else {
-            squadraCheInizia = 'squadraB';
-        }
+        squadraCheInizia = 'squadraA';
+    } else {
+        squadraCheInizia = 'squadraB';
+    }
     return squadraCheInizia;
 };
 
@@ -601,18 +601,65 @@ var squadraCheInizia = function(){
 
 
 
+//---------
 
 
+// voglio anche sapere esattamente i membri che parteciperanno al team fight
+
+var numeroMembriSquadraA = function (){
+    var numeroMembri = 0;
+    if (entroInTeamFight(giocatore1)==true){
+        numeroMembri = numeroMembri + 1;
+    }
+    if (entroInTeamFight(giocatore2)==true){
+        numeroMembri = numeroMembri + 1;
+    }
+    if (entroInTeamFight(giocatore3)==true){
+        numeroMembri = numeroMembri + 1;
+    }
+    if (entroInTeamFight(giocatore4)==true){
+        numeroMembri = numeroMembri + 1;
+    }
+    if (entroInTeamFight(giocatore5)==true){
+        numeroMembri = numeroMembri + 1;
+    }
+    return numeroMembri;
+};
+
+var numeroMembriSquadraB = function (){
+    var numeroMembri = 0;
+    if (entroInTeamFight(giocatore6)==true){
+        numeroMembri = numeroMembri + 1;
+    }
+    if (entroInTeamFight(giocatore7)==true){
+        numeroMembri = numeroMembri + 1;
+    }
+    if (entroInTeamFight(giocatore8)==true){
+        numeroMembri = numeroMembri + 1;
+    }
+    if (entroInTeamFight(giocatore9)==true){
+        numeroMembri = numeroMembri + 1;
+    }
+    if (entroInTeamFight(giocatore10)==true){
+        numeroMembri = numeroMembri + 1;
+    }
+    return numeroMembri;
+};
 
 
+console.log(numeroMembriSquadraA(),numeroMembriSquadraB());
+
+console.log(numeroMembriSquadraA(),numeroMembriSquadraB());
 
 
+console.log(giocatore1.bravura());
+console.log(giocatore1.bravura());
+
+console.log(giocatore1.divinita());
+console.log(giocatore1.divinita());
+
+console.log(squadraA);
+console.log(squadraA);
 
 
-
-
-
-
-
-
-
+// panicoPaura
