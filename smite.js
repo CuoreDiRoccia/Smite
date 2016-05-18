@@ -484,6 +484,15 @@ squadraB.push (giocatore9.divinita());
 var giocatore10 = new giocatore();
 squadraB.push (giocatore10.divinita());
 
+// per evitare che la bravura dei giocatori cambi ogni volta chiamata faccio un array dove inserisco le stesse.
+
+var bravure = [giocatore1.bravura(),giocatore2.bravura(),giocatore3.bravura(),giocatore4.bravura(),giocatore5.bravura(),
+               giocatore6.bravura(),giocatore7.bravura(),giocatore8.bravura(),giocatore9.bravura(),giocatore10.bravura()];
+               
+// stessa cosa per i loro nomiPossibili
+
+var nomiGiocatori = [giocatore1.name(),giocatore2.name(),giocatore3.name(),giocatore4.name(),giocatore5.name(),
+                     giocatore6.name(),giocatore7.name(),giocatore8.name(),giocatore9.name(),giocatore10.name()]               
 
 //console.log(squadraA,squadraB);
 
@@ -513,14 +522,14 @@ var EntroInTeamFight = function (){
 
 
 
-var entroInTeamFight = function (giocatoreX){
+var entroInTeamFight = function (bravura){
     var ciSono = false;
     var numeroFortunato = Math.ceil(Math.random() * 100);
-    if (giocatoreX.bravura() == 0){
+    if (bravura == 0){
         if (numeroFortunato >= 50){
             ciSono = true;
         }    
-    } else if (giocatoreX.bravura() == 1){
+    } else if (bravura == 1){
         if (numeroFortunato >= 25){
             ciSono = true;
         }    
@@ -549,9 +558,9 @@ var entroInTeamFight = function (giocatoreX){
 // faccio un funzione che calcola il valora personale di ogni giocatore
 // dopo attente riflessioni ho deciso di modificare il valore di ingaggio degli dei portandolo ad un valore da 2 a 5.
 
-var valoreGiocatoreIniziativa = function(giocatoreX,squadra){
-    if (entroInTeamFight(giocatoreX) == true){
-        var iniziativa = ((squadra.ingaggio) + (giocatoreX.bravura()) - (squadra.complessita));
+var valoreGiocatoreIniziativa = function(bravura,squadra){
+    if (entroInTeamFight(bravura) == true){
+        var iniziativa = ((squadra.ingaggio) + (bravura) - (squadra.complessita));
     } else {
         var iniziativa = 0;
     }
@@ -574,16 +583,16 @@ var valoreGiocatoreIniziativa = function(giocatoreX,squadra){
 
 var squadraCheInizia = function(){
     var squadraCheInizia;
-    if (valoreGiocatoreIniziativa(giocatore1,squadraA[0]) + 
-        valoreGiocatoreIniziativa(giocatore2,squadraA[1]) + 
-        valoreGiocatoreIniziativa(giocatore3,squadraA[2]) +
-        valoreGiocatoreIniziativa(giocatore4,squadraA[3]) + 
-        valoreGiocatoreIniziativa(giocatore5,squadraA[4]) >=
-        valoreGiocatoreIniziativa(giocatore6,squadraB[0]) + 
-        valoreGiocatoreIniziativa(giocatore7,squadraB[1]) + 
-        valoreGiocatoreIniziativa(giocatore8,squadraB[2]) +
-        valoreGiocatoreIniziativa(giocatore9,squadraB[3]) + 
-        valoreGiocatoreIniziativa(giocatore10,squadraB[4])){
+    if (valoreGiocatoreIniziativa(bravure[0],squadraA[0]) + 
+        valoreGiocatoreIniziativa(bravure[1],squadraA[1]) + 
+        valoreGiocatoreIniziativa(bravure[2],squadraA[2]) +
+        valoreGiocatoreIniziativa(bravure[3],squadraA[3]) + 
+        valoreGiocatoreIniziativa(bravure[4],squadraA[4]) >=
+        valoreGiocatoreIniziativa(bravure[5],squadraB[0]) + 
+        valoreGiocatoreIniziativa(bravure[6],squadraB[1]) + 
+        valoreGiocatoreIniziativa(bravure[7],squadraB[2]) +
+        valoreGiocatoreIniziativa(bravure[8],squadraB[3]) + 
+        valoreGiocatoreIniziativa(bravure[9],squadraB[4])){
         squadraCheInizia = 'squadraA';
     } else {
         squadraCheInizia = 'squadraB';
@@ -591,9 +600,11 @@ var squadraCheInizia = function(){
     return squadraCheInizia;
 };
 
-
-//console.log(squadraCheInizia());
-
+/*
+console.log(squadraCheInizia());
+console.log(squadraCheInizia());
+console.log(squadraCheInizia());
+*/
 
 // questa funzione richiama le altre da sola e ci dice la squadra che inizia
 // se necessario cambieremo le stringhe con un numero ma non è urgente.
@@ -608,19 +619,19 @@ var squadraCheInizia = function(){
 
 var numeroMembriSquadraA = function (){
     var numeroMembri = 0;
-    if (entroInTeamFight(giocatore1)==true){
+    if (entroInTeamFight(bravure[0])==true){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(giocatore2)==true){
+    if (entroInTeamFight(bravure[1])==true){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(giocatore3)==true){
+    if (entroInTeamFight(bravure[2])==true){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(giocatore4)==true){
+    if (entroInTeamFight(bravure[3])==true){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(giocatore5)==true){
+    if (entroInTeamFight(bravure[4])==true){
         numeroMembri = numeroMembri + 1;
     }
     return numeroMembri;
@@ -628,38 +639,181 @@ var numeroMembriSquadraA = function (){
 
 var numeroMembriSquadraB = function (){
     var numeroMembri = 0;
-    if (entroInTeamFight(giocatore6)==true){
+    if (entroInTeamFight(bravure[5])==true){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(giocatore7)==true){
+    if (entroInTeamFight(bravure[6])==true){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(giocatore8)==true){
+    if (entroInTeamFight(bravure[7])==true){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(giocatore9)==true){
+    if (entroInTeamFight(bravure[8])==true){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(giocatore10)==true){
+    if (entroInTeamFight(bravure[9])==true){
         numeroMembri = numeroMembri + 1;
     }
     return numeroMembri;
 };
 
 
-console.log(numeroMembriSquadraA(),numeroMembriSquadraB());
+//console.log(numeroMembriSquadraA(),numeroMembriSquadraB());
+//console.log(numeroMembriSquadraA(),numeroMembriSquadraB());
 
-console.log(numeroMembriSquadraA(),numeroMembriSquadraB());
+//console.log(bravure[0]);
+//console.log(bravure[0]);
 
+//console.log(nomiGiocatori[0]);
+//console.log(nomiGiocatori[0]);
 
-console.log(giocatore1.bravura());
-console.log(giocatore1.bravura());
-
-console.log(giocatore1.divinita());
-console.log(giocatore1.divinita());
-
-console.log(squadraA);
-console.log(squadraA);
+//console.log(squadraA);
+//console.log(squadraA);
 
 
-// panicoPaura
+//console.log(squadraCheInizia());
+//console.log(squadraCheInizia());
+//console.log(squadraCheInizia());
+
+//console.log(valoreGiocatoreIniziativa(bravure[0],squadraA[0]));
+//console.log(valoreGiocatoreIniziativa(bravure[0],squadraA[0]));
+
+
+//--------------
+
+
+// ora che il programma è stato rivisitato possiamo continuare Hi
+// seguendo le regole sappiamo che una squadra fa tanti attacchi quanti membri
+// entrati in team fight
+/*
+var numeroAttacchiSquadraA = numeroMembriSquadraA();
+var numeroAttacchiSquadraB = numeroMembriSquadraB();
+*/
+//console.log(numeroAttacchiSquadraA,numeroAttacchiSquadraB);
+
+
+// possiamo quindi disporre una funzione che regola gli attacchi
+// ipotizziamo per ora che il primo membro attacchi il primo della squadra nemica
+
+
+
+var danno = function(attaccante,difensore){
+    var numeroFortunato = Math.ceil(Math.random()*100);
+    var danno = false;
+    if (attaccante.forza == 1){
+        if (difensore.escape == 1){
+            if(numeroFortunato >= 40){
+                danno = true;
+            }
+        } else if (difensore.escape == 2){
+            if(numeroFortunato >= 60){
+                danno = true;
+            }            
+        } else {
+            if(numeroFortunato >= 80){
+                danno = true;
+            }            
+        }
+    } else if (attaccante.forza == 2){
+        if (difensore.escape == 1){
+            if(numeroFortunato >= 25){
+                danno = true;
+            }           
+        } else if (difensore.escape == 2){
+            if(numeroFortunato >= 45){
+                danno = true;
+            }            
+        } else {
+            if(numeroFortunato >= 65){
+                danno = true;
+            }            
+        }
+    } else {
+        if (difensore.escape == 1){
+            if(numeroFortunato >= 10){
+                danno = true;
+            }            
+        } else if (difensore.escape == 2){
+            if(numeroFortunato >= 30){
+                danno = true;
+            }            
+        } else {
+            if(numeroFortunato >= 50){
+                danno = true;
+            }            
+        }        
+    }
+    return danno;
+};
+
+
+
+//console.log(danno(squadraA[0],squadraB[0]));
+
+
+//console.log((squadraA[0]).forza + 'squadra' + squadraA[0].name);
+//console.log(squadraA)
+
+// ora sappiamo che tutti i membri in team fight attaccanti attaccheranno ma sappiamo anche che
+// il bersaglio sarà quello con il valore d'attacco maggiore
+// ci serve quindi una funzione che ci dia come risultato i bersaglio
+
+var forzaDifensore = function(X,squadra){
+    var forzaDifensore = undefined;
+    if (entroInTeamFight(bravure[X])==true){
+        if (squadra.forza == 1){
+            forzaDifensore = 1;
+        } else if (squadra.forza == 2){
+            forzaDifensore = 2;
+        } else{
+            forzaDifensore = 3;
+        }
+    }
+    return forzaDifensore;
+};
+
+//console.log(forzaDifensore(6,squadraB[0]));
+
+
+var primoBersaglioAttaccoSquadraB = function(){
+    var difensore;
+    if (forzaDifensore(6,squadraB[0]) >= forzaDifensore(7,squadraB[1]) ||
+        forzaDifensore(6,squadraB[0]) >= forzaDifensore(8,squadraB[2]) ||
+        forzaDifensore(6,squadraB[0]) >= forzaDifensore(9,squadraB[3]) ||
+        forzaDifensore(6,squadraB[0]) >= forzaDifensore(10,squadraB[4])){
+        difensore = squadraB[0];    
+    } else if(forzaDifensore(7,squadraB[1]) >= forzaDifensore(6,squadraB[0]) ||
+              forzaDifensore(7,squadraB[1]) >= forzaDifensore(8,squadraB[2]) ||
+              forzaDifensore(7,squadraB[1]) >= forzaDifensore(9,squadraB[3]) ||
+              forzaDifensore(7,squadraB[1]) >= forzaDifensore(10,squadraB[4])){
+        difensore = squadraB[1];
+    } else if(forzaDifensore(8,squadraB[2]) >= forzaDifensore(6,squadraB[0]) ||
+              forzaDifensore(8,squadraB[2]) >= forzaDifensore(7,squadraB[1]) ||
+              forzaDifensore(8,squadraB[2]) >= forzaDifensore(9,squadraB[3]) ||
+              forzaDifensore(8,squadraB[2]) >= forzaDifensore(10,squadraB[4])){
+        difensore = squadraB[2];
+    } else if(forzaDifensore(9,squadraB[3]) >= forzaDifensore(6,squadraB[0]) ||
+              forzaDifensore(9,squadraB[3]) >= forzaDifensore(7,squadraB[1]) ||
+              forzaDifensore(9,squadraB[3]) >= forzaDifensore(8,squadraB[2]) ||
+              forzaDifensore(9,squadraB[3]) >= forzaDifensore(10,squadraB[4])){
+        difensore = squadraB[3];  
+    } else {
+        difensore = squadraB[2];  
+    }
+    return difensore;
+}
+
+
+
+// troppo casino mmmm
+
+
+
+
+
+
+
+
+
+
+
