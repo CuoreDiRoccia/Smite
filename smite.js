@@ -125,7 +125,7 @@ console.log(giocatore1.bravura());
 // procedo creando i 10 dei (per ora) che prenderanno parte allo scontro
 // per ogni dio definisco complessità (1-2-3), forza(1-2-3), difesa(1-2-3) e escape(1-2-3); 
 
-// e il nome e l'ingaggio (2-3-4-5)
+// e il nome e l'ingaggio (3-4-5)
 
 var dio = function (){
     this.name;
@@ -142,7 +142,7 @@ ymir.complessita = 1;
 ymir.forza = 2;
 ymir.difesa = 3; 
 ymir.escape = 1;
-ymir.ingaggio = 4
+ymir.ingaggio = 5;
 
 
 var bastet = new dio();
@@ -169,7 +169,7 @@ kukulkan.complessita = 2;
 kukulkan.forza = 3;
 kukulkan.difesa = 1;
 kukulkan.escape = 1;
-kukulkan.ingaggio = 1;
+kukulkan.ingaggio = 3;
 
 
 var xbalanque = new dio();
@@ -178,7 +178,7 @@ xbalanque.complessita = 2;
 xbalanque.forza = 3;
 xbalanque.difesa = 1;
 xbalanque.escape = 2;
-xbalanque.ingaggio = 1;
+xbalanque.ingaggio = 3;
 
 
 var odin = new dio();
@@ -196,7 +196,7 @@ neith.complessita = 1;
 neith.forza = 3;
 neith.difesa = 1;
 neith.escape = 2;
-neith.ingaggio = 2;
+neith.ingaggio = 4;
 
 
 var loki = new dio();
@@ -223,7 +223,7 @@ heBo.complessita = 2;
 heBo.forza = 3;
 heBo.difesa = 1;
 heBo.escape = 2;
-heBo.ingaggio = 2;
+heBo.ingaggio = 3;
 
 
 var dei = [ymir, bastet, nox, kukulkan, xbalanque, odin, neith, loki, sunWukong, heBo];
@@ -580,19 +580,30 @@ var valoreGiocatoreIniziativa = function(bravura,squadra){
 
 // possiamo ora decidere chi inizia
 
+var iniziativaPrimoRound1 = valoreGiocatoreIniziativa(bravure[0],squadraA[0]);
+var iniziativaPrimoRound2 = valoreGiocatoreIniziativa(bravure[1],squadraA[1]);
+var iniziativaPrimoRound3 = valoreGiocatoreIniziativa(bravure[2],squadraA[2]);
+var iniziativaPrimoRound4 = valoreGiocatoreIniziativa(bravure[3],squadraA[3]);
+var iniziativaPrimoRound5 = valoreGiocatoreIniziativa(bravure[4],squadraA[4]);
+var iniziativaPrimoRound6 = valoreGiocatoreIniziativa(bravure[5],squadraB[0]);
+var iniziativaPrimoRound7 = valoreGiocatoreIniziativa(bravure[6],squadraB[1]);
+var iniziativaPrimoRound8 = valoreGiocatoreIniziativa(bravure[7],squadraB[2]);
+var iniziativaPrimoRound9 = valoreGiocatoreIniziativa(bravure[8],squadraB[3]);
+var iniziativaPrimoRound10 = valoreGiocatoreIniziativa(bravure[9],squadraB[4]);
+
 
 var squadraCheInizia = function(){
     var squadraCheInizia;
-    if (valoreGiocatoreIniziativa(bravure[0],squadraA[0]) + 
-        valoreGiocatoreIniziativa(bravure[1],squadraA[1]) + 
-        valoreGiocatoreIniziativa(bravure[2],squadraA[2]) +
-        valoreGiocatoreIniziativa(bravure[3],squadraA[3]) + 
-        valoreGiocatoreIniziativa(bravure[4],squadraA[4]) >=
-        valoreGiocatoreIniziativa(bravure[5],squadraB[0]) + 
-        valoreGiocatoreIniziativa(bravure[6],squadraB[1]) + 
-        valoreGiocatoreIniziativa(bravure[7],squadraB[2]) +
-        valoreGiocatoreIniziativa(bravure[8],squadraB[3]) + 
-        valoreGiocatoreIniziativa(bravure[9],squadraB[4])){
+    if (iniziativaPrimoRound1 + 
+        iniziativaPrimoRound2 + 
+        iniziativaPrimoRound3 +
+        iniziativaPrimoRound4 + 
+        iniziativaPrimoRound5 >=
+        iniziativaPrimoRound6 + 
+        iniziativaPrimoRound7 + 
+        iniziativaPrimoRound8 +
+        iniziativaPrimoRound9 + 
+        iniziativaPrimoRound10){
         squadraCheInizia = 'squadraA';
     } else {
         squadraCheInizia = 'squadraB';
@@ -619,19 +630,19 @@ console.log(squadraCheInizia());
 
 var numeroMembriSquadraA = function (){
     var numeroMembri = 0;
-    if (entroInTeamFight(bravure[0])==true){
+    if (iniziativaPrimoRound1 > 0){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(bravure[1])==true){
+    if (iniziativaPrimoRound2 > 0){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(bravure[2])==true){
+    if (iniziativaPrimoRound3 > 0){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(bravure[3])==true){
+    if (iniziativaPrimoRound4 > 0){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(bravure[4])==true){
+    if (iniziativaPrimoRound5 > 0){
         numeroMembri = numeroMembri + 1;
     }
     return numeroMembri;
@@ -639,19 +650,19 @@ var numeroMembriSquadraA = function (){
 
 var numeroMembriSquadraB = function (){
     var numeroMembri = 0;
-    if (entroInTeamFight(bravure[5])==true){
+    if (iniziativaPrimoRound6 > 0){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(bravure[6])==true){
+    if (iniziativaPrimoRound7 > 0){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(bravure[7])==true){
+    if (iniziativaPrimoRound8 > 0){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(bravure[8])==true){
+    if (iniziativaPrimoRound9 > 0){
         numeroMembri = numeroMembri + 1;
     }
-    if (entroInTeamFight(bravure[9])==true){
+    if (iniziativaPrimoRound10 > 0){
         numeroMembri = numeroMembri + 1;
     }
     return numeroMembri;
@@ -777,35 +788,84 @@ var forzaDifensore = function(X,squadra){
 
 var primoBersaglioAttaccoSquadraB = function(){
     var difensore;
-    if (forzaDifensore(6,squadraB[0]) >= forzaDifensore(7,squadraB[1]) ||
-        forzaDifensore(6,squadraB[0]) >= forzaDifensore(8,squadraB[2]) ||
-        forzaDifensore(6,squadraB[0]) >= forzaDifensore(9,squadraB[3]) ||
-        forzaDifensore(6,squadraB[0]) >= forzaDifensore(10,squadraB[4])){
+    if (iniziativaPrimoRound6 > 0 && iniziativaPrimoRound7 > 0 && forzaDifensore(6,squadraB[0]) >= forzaDifensore(7,squadraB[1]) ||
+        iniziativaPrimoRound6 > 0 && iniziativaPrimoRound8 > 0 && forzaDifensore(6,squadraB[0]) >= forzaDifensore(8,squadraB[2]) ||
+        iniziativaPrimoRound6 > 0 && iniziativaPrimoRound9 > 0 && forzaDifensore(6,squadraB[0]) >= forzaDifensore(9,squadraB[3]) ||
+        iniziativaPrimoRound6 > 0 && iniziativaPrimoRound10 > 0 && forzaDifensore(6,squadraB[0]) >= forzaDifensore(10,squadraB[4])){
         difensore = squadraB[0];    
-    } else if(forzaDifensore(7,squadraB[1]) >= forzaDifensore(6,squadraB[0]) ||
-              forzaDifensore(7,squadraB[1]) >= forzaDifensore(8,squadraB[2]) ||
-              forzaDifensore(7,squadraB[1]) >= forzaDifensore(9,squadraB[3]) ||
-              forzaDifensore(7,squadraB[1]) >= forzaDifensore(10,squadraB[4])){
+    } else if(iniziativaPrimoRound7 > 0 && iniziativaPrimoRound6 > 0 && forzaDifensore(7,squadraB[1]) >= forzaDifensore(6,squadraB[0]) ||
+              iniziativaPrimoRound7 > 0 && iniziativaPrimoRound8 > 0 && forzaDifensore(7,squadraB[1]) >= forzaDifensore(8,squadraB[2]) ||
+              iniziativaPrimoRound7 > 0 && iniziativaPrimoRound9 > 0 && forzaDifensore(7,squadraB[1]) >= forzaDifensore(9,squadraB[3]) ||
+              iniziativaPrimoRound7 > 0 && iniziativaPrimoRound10 > 0 && forzaDifensore(7,squadraB[1]) >= forzaDifensore(10,squadraB[4])){
         difensore = squadraB[1];
-    } else if(forzaDifensore(8,squadraB[2]) >= forzaDifensore(6,squadraB[0]) ||
-              forzaDifensore(8,squadraB[2]) >= forzaDifensore(7,squadraB[1]) ||
-              forzaDifensore(8,squadraB[2]) >= forzaDifensore(9,squadraB[3]) ||
-              forzaDifensore(8,squadraB[2]) >= forzaDifensore(10,squadraB[4])){
+    } else if(iniziativaPrimoRound8 > 0 && iniziativaPrimoRound6 > 0 && forzaDifensore(8,squadraB[2]) >= forzaDifensore(6,squadraB[0]) ||
+              iniziativaPrimoRound8 > 0 && iniziativaPrimoRound7 > 0 && forzaDifensore(8,squadraB[2]) >= forzaDifensore(7,squadraB[1]) ||
+              iniziativaPrimoRound8 > 0 && iniziativaPrimoRound9 > 0 && forzaDifensore(8,squadraB[2]) >= forzaDifensore(9,squadraB[3]) ||
+              iniziativaPrimoRound8 > 0 && iniziativaPrimoRound10 > 0 && forzaDifensore(8,squadraB[2]) >= forzaDifensore(10,squadraB[4])){
         difensore = squadraB[2];
-    } else if(forzaDifensore(9,squadraB[3]) >= forzaDifensore(6,squadraB[0]) ||
-              forzaDifensore(9,squadraB[3]) >= forzaDifensore(7,squadraB[1]) ||
-              forzaDifensore(9,squadraB[3]) >= forzaDifensore(8,squadraB[2]) ||
-              forzaDifensore(9,squadraB[3]) >= forzaDifensore(10,squadraB[4])){
+    } else if(iniziativaPrimoRound9 > 0 && iniziativaPrimoRound6 > 0 && forzaDifensore(9,squadraB[3]) >= forzaDifensore(6,squadraB[0]) ||
+              iniziativaPrimoRound9 > 0 && iniziativaPrimoRound7 > 0 && forzaDifensore(9,squadraB[3]) >= forzaDifensore(7,squadraB[1]) ||
+              iniziativaPrimoRound9 > 0 && iniziativaPrimoRound8 > 0 && forzaDifensore(9,squadraB[3]) >= forzaDifensore(8,squadraB[2]) ||
+              iniziativaPrimoRound9 > 0 && iniziativaPrimoRound10 > 0 && forzaDifensore(9,squadraB[3]) >= forzaDifensore(10,squadraB[4])){
         difensore = squadraB[3];  
     } else {
-        difensore = squadraB[2];  
+        difensore = squadraB[4];  
     }
     return difensore;
+};
+
+
+
+// ora possiamo mettere il difensore al suo posto
+
+//console.log(danno(squadraA[0],primoBersaglioAttaccoSquadraB()));
+
+// ipoteticamente dovrebbe verificarsi una situazione simile a questa;
+
+/*
+
+console.log(danno(squadraA[0],primoBersaglioAttaccoSquadraB()));
+console.log(danno(squadraA[1],primoBersaglioAttaccoSquadraB()));
+console.log(danno(squadraA[2],primoBersaglioAttaccoSquadraB()));
+console.log(danno(squadraA[3],primoBersaglioAttaccoSquadraB()));
+console.log(danno(squadraA[4],primoBersaglioAttaccoSquadraB()));
+
+*/
+
+// ora rimangono 2 cose da fare
+// i membri non in team fight non attaccano o subiscono attacchi (partono da già morti potremmo dire)
+// qualora un bersaglio ci lasciasse le penne bisogna passare ad un altro bersaglio
+
+
+var attaccoAllaSquadraB = function(){
+    var quantitaDiDanni = 0;
+    if (iniziativaPrimoRound1 > 0){
+        if (danno(squadraA[0],primoBersaglioAttaccoSquadraB()) == true){
+            quantitaDiDanni = quantitaDiDanni + 1;  
+        }
+    }
+    return quantitaDiDanni;    
+};
+
+
+//console.log(attaccoAllaSquadraB());
+
+/*
+var ferita = function(){
+    if (attaccoAllaSquadraB == 1){
+        primoBersaglioAttaccoSquadraB().difesa = (primoBersaglioAttaccoSquadraB().difesa) -1;
+    }
+    if (primoBersaglioAttaccoSquadraB().difesa == 2){
+        
+    }
 }
 
+*/
+
+// sono arrivato qui devo continuare l'ultima funzione
 
 
-// troppo casino mmmm
+
 
 
 
